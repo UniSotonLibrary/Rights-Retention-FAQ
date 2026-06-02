@@ -92,11 +92,12 @@ All other research outputs are explicitly out-of-scope of the prior licence gran
 Note, out-of-scope outputs may be subject to the Open Access Policy and may require deposit in the institutional repository even if they are subject to author or publisher restrictions.
 :::
 
-::: {.callout-note, collapse=TRUE}
+::: {.callout-note collapse="true"}
 ### Is the University asking me to change my intellectual property rights?
 
 No, not at all. Intellectual property (IP) is covered by the [IP regulations](https://www.southampton.ac.uk/about/governance/regulations-policies/general-regulations/intellectual-property). Copyright in the Work is being granted to the University, but this does not limit any of your rights, including IP. The IP Regulations were changed because the wording  in one section had potential to cause confusion with respect to rights granted to the institution with respect to Journal Articles and Conference proceedings.
 :::
+
 ------------------------------------------------------------------------
 
 ## 3. Copyright and licensing
@@ -142,7 +143,7 @@ You may lose the ability to share or reuse your work unless rights were **retain
 :::
 
 ::: {.callout-note collapse="true"}
-### What if a publisher objects? Some journals will not accept papers containing rights retention statements.
+### What if a publisher objects? Some publishers will not accept papers containing rights retention statements.
 
 The University has notified many publishers about our policy changes and their implications. We have published a list of notified publishers and a list of publishers who will not accept rights retention approaches, particularly around embargo-free access. Those publishers who resist rights retention should have early conversations with you, their objection does not invalidate the licence. Exceptions to the policy can be made in advance so long as we have explored the options available. Institutional support is available to help resolve issues [@coalition_s_rrs].
 :::
