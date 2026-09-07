@@ -16,13 +16,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          version: "1.6.40"
+      - name: Install Quarto
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y quarto
+
+      - name: Check Quarto version
+        run: quarto --version
 
       - name: Render site
-        uses: quarto-dev/quarto-actions/render@v2
+        run: |
+          quarto render 2>&1 | tee render.log
+          cat render.log
+
+      - name: Upload render logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: render-logs
+          path: render.log
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
