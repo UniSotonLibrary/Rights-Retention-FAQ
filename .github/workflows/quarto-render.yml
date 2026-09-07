@@ -16,30 +16,32 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
       - name: Install Quarto
         run: |
           wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.4.555/quarto-1.4.555-linux-amd64.deb
           sudo dpkg -i quarto-1.4.555-linux-amd64.deb
 
-      - name: Check Quarto version
-        run: quarto --version
-
-      - name: Render site and capture error
+      - name: Check environment
         run: |
-          quarto render > /tmp/quarto.out 2>&1 || true
-          cat /tmp/quarto.out
-          cp /tmp/quarto.out quarto-output.txt
+          which quarto
+          quarto --version
+          pandoc --version
+          ls -la
 
-      - name: Upload logs
-        uses: actions/upload-artifact@v4
-        with:
-          name: quarto-logs
-          path: quarto-output.txt
+      - name: Render site
+        run: quarto render 2>&1 | tee render.log
 
-      - name: Show output for debugging
-        run: cat quarto-output.txt
-
-      - name: Publish to GitHub Pages
-        uses: quarto-dev/quarto-actions/publish@v2
-        with:
-          target: gh-pages
+      - name: Check if _site exists
+        run: |
+          if [ -d "_site" ]; then
+            echo "✓ _site directory created successfully"
+            ls -la _site
+          else
+            echo "✗ _site directory not found"
+            cat render.log
+          fi
