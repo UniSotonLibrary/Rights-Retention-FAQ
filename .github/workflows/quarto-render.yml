@@ -24,20 +24,20 @@ jobs:
       - name: Check Quarto version
         run: quarto --version
 
-      - name: List files
+      - name: Render site and capture error
         run: |
-          echo "=== Root directory ==="
-          ls -la
-          echo "=== Checking index.qmd ==="
-          head -50 index.qmd
-          echo "=== Checking rr-faqs.bib ==="
-          head -20 rr-faqs.bib
+          quarto render > /tmp/quarto.out 2>&1 || true
+          cat /tmp/quarto.out
+          cp /tmp/quarto.out quarto-output.txt
 
-      - name: Try rendering with verbose output
-        run: |
-          set -x
-          quarto render --debug 2>&1 | head -500
-        continue-on-error: true
+      - name: Upload logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: quarto-logs
+          path: quarto-output.txt
+
+      - name: Show output for debugging
+        run: cat quarto-output.txt
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
