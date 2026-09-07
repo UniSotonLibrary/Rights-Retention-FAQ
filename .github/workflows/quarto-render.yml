@@ -18,12 +18,11 @@ jobs:
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: "1.6.40"
 
-      - name: Render site with full output
-        run: |
-          set -x
-          quarto check 2>&1
-          quarto render 2>&1 || (echo "Render failed"; exit 1)
+      - name: Render site
+        uses: quarto-dev/quarto-actions/render@v2
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
