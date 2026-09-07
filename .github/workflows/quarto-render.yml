@@ -24,8 +24,20 @@ jobs:
       - name: Check Quarto version
         run: quarto --version
 
-      - name: Render site
-        run: quarto render
+      - name: List files
+        run: |
+          echo "=== Root directory ==="
+          ls -la
+          echo "=== Checking index.qmd ==="
+          head -50 index.qmd
+          echo "=== Checking rr-faqs.bib ==="
+          head -20 rr-faqs.bib
+
+      - name: Try rendering with verbose output
+        run: |
+          set -x
+          quarto render --debug 2>&1 | head -500
+        continue-on-error: true
 
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
