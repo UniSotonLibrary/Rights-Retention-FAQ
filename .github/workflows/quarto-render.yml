@@ -13,23 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ✅ 1. Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ✅ 2. Install Quarto
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Check Quarto installation
-        run: quarto check
+      - name: Render site with full output
+        run: |
+          set -x
+          quarto check 2>&1
+          quarto render 2>&1 || (echo "Render failed"; exit 1)
 
-      # ✅ 3. Render the project
-      - name: Render site
-        # uses: quarto-dev/quarto-actions/render@v2
-        run: quarto render --debug
-
-      # ✅ 4. ✅ THIS IS WHERE YOUR BLOCK GOES
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
         with:
