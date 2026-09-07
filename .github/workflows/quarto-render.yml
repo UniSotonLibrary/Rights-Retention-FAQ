@@ -21,9 +21,13 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      - name: Check Quarto installation
+        run: quarto check
+
       # ✅ 3. Render the project
       - name: Render site
-        uses: quarto-dev/quarto-actions/render@v2
+        # uses: quarto-dev/quarto-actions/render@v2
+        run: quarto render --debug
 
       # ✅ 4. ✅ THIS IS WHERE YOUR BLOCK GOES
       - name: Publish to GitHub Pages
